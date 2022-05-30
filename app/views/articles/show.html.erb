@@ -1,0 +1,43 @@
+
+
+<h1><%= @find_article[:title] %></h1>
+<p>Body: <%= @find_article[:body] %></p>
+<p>Importance: <%= @find_article[:importance] %></p>
+
+<p> <%= time_ago_in_words(@find_article.created_at) %> </p>
+
+<h2><%= @toast %></h2>
+
+
+<p><%= link_to "Edit", edit_article_path %>
+   <%= link_to "Delete", 
+     article_path, 
+     method: :delete, 
+     data: { confirm: "Really?"} %></p>
+<p>
+  <%= link_to_unless_current "Previews", @find_article.previews %>
+  <%= link_to_unless_current "Next", @find_article.next %>
+</p>
+
+<h2>Comments</h2>
+<% @find_article.comments.each do |comment| %>
+    <p>Commenter: <%= comment.commenter %></p>
+    <p>Comment: <%= comment.body %></p>
+    <% end %>
+<%= form_with model: [@find_article, @find_article.comments.build ] do |form| %>
+  <div>
+    <%= form.label :commenter %><br>
+    <%= form.text_field :commenter %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<h2>Add a Comment</h2>
+

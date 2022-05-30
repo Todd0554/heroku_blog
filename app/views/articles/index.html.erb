@@ -1,0 +1,31 @@
+<h1><%= @articles.count %> Article are here.</h1>
+<h1><%= pluralize(@articles.count, "Person") %> are here.</h1>
+<p>
+<%= @time %>
+</p>
+
+<ul>
+<% @articles.each do |article| %>
+    <li>
+        <%= link_to article.title, article_path(article) %>
+    </li>
+    
+<% end %>
+</ul>
+
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>Importance</th>
+  </tr>
+<% @articles.each do |article| %>     
+  <tr style="background-color:<%= cycle("red", "green") %>">
+    <td><%= link_to article.title, article_path(article) %></td>
+    <%# truncate(article.body.to_s, length: 40, omission:'...(continued)') %>
+    <td ><%= article.body %></td>
+    <td><%= article.importance %></td>
+  </tr> 
+<% end %>
+</table>
