@@ -6,7 +6,7 @@ class MigrateBodyFromActionTextToArticles < ActiveRecord::Migration[6.1]
       Article.all.each do |article|
           article.update_attribute(:body, simple_format(article.body_old))
       end
-      
+
       remove_column :articles, :body_old
   end
 end
